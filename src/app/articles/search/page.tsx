@@ -1,10 +1,16 @@
-import React from 'react'
 
-const SearchArticlePage = () => {
+interface SearchArticlePageProps{
+  searchParams: {searchText : string}
+}
+
+const SearchArticlePage = ({searchParams}:SearchArticlePageProps) => {
+  
   return (
-    <div>
-      Search Article Page
-    </div>
+    <section className='fix-height container m-auto px-5'>
+      <h1 className='text-2xl font-bold'>
+        search text is : {searchParams.searchText}
+      </h1>
+      </section>
   )
 }
 

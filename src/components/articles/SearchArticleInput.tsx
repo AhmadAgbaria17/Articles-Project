@@ -1,8 +1,10 @@
 "use client";
 import React,{useState} from "react";
+import {useRouter} from 'next/navigation'
 
 const SearchArticleInput = () => {
 
+  const router = useRouter();
   const [searchText, setSearchText] = useState("");
 
   const formSubmitHandler = (e:React.FormEvent) => {
@@ -10,6 +12,7 @@ const SearchArticleInput = () => {
 
     
     console.log(searchText);
+    router.push(`/articles/search?searchText=${searchText}`);
   }
 
   return (
