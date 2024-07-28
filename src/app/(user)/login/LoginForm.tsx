@@ -15,7 +15,7 @@ const LoginForm = () => {
     if(email==="") return toast.error("email is required");
     if(password==="") return toast.error("password is required"); 
 
-    console.log({email,password})
+    
     router.replace('/');
   }
 

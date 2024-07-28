@@ -2,11 +2,18 @@
 
 export interface CreateArticleDto{
   title: string;
-  body: string;
+  description: string;
 }
 
 
 export interface UpdateArticleDto{
   title?: string;
-  body?: string;
+  description?: string;
+}
+
+
+export interface RegisterUserDto{
+  username: string;
+  email: string;
+  password: string;
 }
