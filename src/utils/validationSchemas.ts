@@ -21,3 +21,10 @@ export const createUserSchema = z.object({
   password : z.string().min(6).max(100),
   
 })
+
+
+export const loginUserSchema = z.object({
+  email : z.string().min(2).max(50,{message:"email max 50"}).email({message:"invalid email"}),
+  password : z.string().min(6).max(100),
+  
+})

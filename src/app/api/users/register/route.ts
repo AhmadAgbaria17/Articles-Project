@@ -3,6 +3,7 @@ import { RegisterUserDto } from '@/utils/dtos';
 import { createUserSchema } from '@/utils/validationSchemas';
 import {NextResponse, NextRequest} from 'next/server';
 import bcrypt from 'bcryptjs'
+import { setCookie } from '@/utils/generateToken';
 
 
 /**
@@ -40,13 +41,29 @@ export async function POST(request:NextRequest) {
       select:{
         id:true,
         username:true,
+        isAdmin:true,
         email:true
       }
     })
 
-    const token = null;
+    
 
-    return NextResponse.json({...newUser, token},{status:201});
+    const cookie = setCookie({
+      id:newUser.id,
+      email: newUser.email,
+      isAdmin:newUser.isAdmin,
+      username:newUser.username
+    });
+
+
+
+    return NextResponse.json({...newUser, message:"Registered & Authenticated"},
+      {
+      status:201,
+      headers:{
+        "Set-Cookie": cookie
+      }
+    });
 
     
   } catch (error) {
