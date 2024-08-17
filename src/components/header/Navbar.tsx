@@ -32,7 +32,7 @@ const Navbar = () => {
     >
       <ul className={styles.navLinks}> 
         <Link onClick={()=>setToggle(false)} href='/' className={styles.navLink}>Home</Link>
-        <Link onClick={()=>setToggle(false)} href='/articles' className={styles.navLink}>Articles</Link>
+        <Link onClick={()=>setToggle(false)} href='/articles?pageNumber=1' className={styles.navLink}>Articles</Link>
         <Link onClick={()=>setToggle(false)} href='/about' className={styles.navLink}>About</Link>
         <Link onClick={()=>setToggle(false)} href='/admin' className={styles.navLink}>Admin Dashborad</Link>
       </ul>

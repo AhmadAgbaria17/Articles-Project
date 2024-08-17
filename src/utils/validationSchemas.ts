@@ -28,3 +28,18 @@ export const loginUserSchema = z.object({
   password : z.string().min(6).max(100),
   
 })
+
+
+export const CreateCommentSchema = z.object({
+  text : z.string().min(2).max(500,{message:"text max 500"}),
+  articleId : z.number(),
+  
+})
+
+
+export const UpdateUserSchema = z.object({
+  username : z.string().min(4).max(100).optional(),
+  email : z.string().min(2).max(50,{message:"email max 50"}).email({message:"invalid email"}).optional(),
+  password : z.string().min(6).max(100).optional(),
+  
+})

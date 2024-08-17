@@ -36,10 +36,10 @@ model Comment {
   userId Int
 
   // one to many realation between Article and Comments
-  article   Article  @relation(fields: [articleId], references: [id])
+  article   Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
 
   // one to many realation between User and Comments
-  user   User  @relation(fields: [userId], references: [id])
+  user   User  @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 

@@ -3,19 +3,25 @@ import { createArticleSchema } from "@/utils/validationSchemas";
 import { CreateArticleDto } from "@/utils/dtos";
 import { Article } from "@prisma/client";
 import prisma from '@/utils/db';
+import { ArticlePerPage } from "@/utils/constant";
+import { verifyToken } from "@/utils/verifyToken";
 
 
 /**
  * @method GET
- * @route ~/api/articles
- * @description Get All Articles
+ * @route ~/api/articles?pageNumber
+ * @description Get Articles By Page number
  * @access public
  */
 
 export async function GET(request: NextRequest) {
   try {
-    const articles = await prisma.article.findMany();
-    return NextResponse.json({ articles }, { status: 200 });
+    const pageNumber= request.nextUrl.searchParams.get("pageNumber") || "1";
+    const articles = await prisma.article.findMany({
+      skip: ArticlePerPage *(parseInt(pageNumber) - 1),
+      take:  ArticlePerPage
+    });
+    return NextResponse.json(articles, { status: 200 });
     
   } catch (error) {
     return NextResponse.json({ message: "internal server error" }, { status: 500 });
@@ -26,10 +32,14 @@ export async function GET(request: NextRequest) {
  * @method POST
  * @route ~/api/articles
  * @description create new article
- * @access public
+ * @access private (only admin)
  */
 export async function POST(request: NextRequest) {
   try {
+    const user = verifyToken(request);
+    if (!user || !user.isAdmin) {
+      return NextResponse.json({message:"only Admin can create article"},{status:403})
+    }
     const body = (await request.json()) as CreateArticleDto;
 
     const validation = createArticleSchema.safeParse(body);
