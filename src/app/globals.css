@@ -27,3 +27,6 @@ body {
   height: calc(100vh - 150px);
 }
 
+button:disabled{
+  cursor: not-allowed;
+}

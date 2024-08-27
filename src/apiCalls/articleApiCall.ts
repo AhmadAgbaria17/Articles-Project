@@ -1,11 +1,13 @@
 import axios from 'axios';
 import { Article } from "@prisma/client";
+import { DOMAIN } from '@/utils/constant';
+import { SingleArticle } from '@/utils/types';
 
 
-
+// Get all the articles 
 export async function getArticles(pageNumber:string | undefined): Promise<Article[]>{
   try {
-    const response = await axios.get('http://localhost:3000/api/articles',{
+    const response = await axios.get(`${DOMAIN}/api/articles`,{
       params: { pageNumber:pageNumber },
     });
     
@@ -17,10 +19,10 @@ export async function getArticles(pageNumber:string | undefined): Promise<Articl
   }
 }
 
-
+// get article count
 export async function getArticlesCount() :Promise<number>{
 
-    const response = await fetch('http://localhost:3000/api/articles/count');
+    const response = await fetch(`${DOMAIN}/api/articles/count`);
     if(!response.ok){
       throw new Error('Failed to fetch article count');
     }
@@ -29,10 +31,10 @@ export async function getArticlesCount() :Promise<number>{
 
 }
 
-
-export async function getArticlesBySearchText(searchText:string) : Promise<Article[]>{
+// get Articles by search text
+export async function getArticlesBySearchText(searchText:string ) : Promise<Article[]>{
   try {
-    const response = await axios.get('http://localhost:3000/api/articles/search',{
+    const response = await axios.get(`${DOMAIN}/api/articles/search`,{
       params: { searchText:searchText },
     });
     
@@ -40,6 +42,18 @@ export async function getArticlesBySearchText(searchText:string) : Promise<Artic
      
   } catch (error) {
     throw new Error('Failed to fetch data in Article page');
+  }
+
+}
+
+// get single Article
+export async function getSingleArticle(ArticleId:string): Promise<SingleArticle> {
+
+  try {
+    const response = await axios.get(`${DOMAIN}/api/articles/${ArticleId}`)
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to fetch single article page');
   }
 
 }
