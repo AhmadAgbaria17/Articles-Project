@@ -4,6 +4,7 @@ import { DOMAIN } from '@/utils/constant';
 import { SingleArticle } from '@/utils/types';
 
 
+
 // Get all the articles 
 export async function getArticles(pageNumber:string | undefined): Promise<Article[]>{
   try {

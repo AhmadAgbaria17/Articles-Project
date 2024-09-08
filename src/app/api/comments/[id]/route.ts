@@ -49,7 +49,7 @@ export async function DELETE(request: NextRequest, { params }:Props){
   try {
     
     const comment = await prisma.comment.findUnique({where: { id : parseInt(params.id)}});
-    if(!comment) return NextResponse.json({message:"user not found"},{status:404});
+    if(!comment) return NextResponse.json({message:"comment not found"},{status:404});
 
 
     const userfromToken = verifyToken(request)
